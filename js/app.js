@@ -7,9 +7,25 @@ function Seguro(marca, anio, tipo){
 
 
 // Todo lo que se muestra
-function Interfaz(){
+function Interfaz(){}
 
+// mensaje que se imprime en el HTML
+Interfaz.prototype.mostrarError = function(mensaje, tipo){
+  const div = document.createElement('div');
+
+  if(tipo === 'error'){
+    div.classList.add('mensaje', 'error');
+  }else{
+    div.classList.add('mensaje', 'correcto');
+  }
+  div.innerHTML = `${mensaje}`;
+  formulario.insertBefore(div, document.querySelector('.form-group'));
+
+  setTimeout(function(){
+    document.querySelector('.mensaje').remove();
+  }, 3000);
 }
+
 
 
 // Event listeners
@@ -35,7 +51,7 @@ formulario.addEventListener('submit', function(e){
   // revisar que los campos no esten vacios
   if(marcaSeleccionada === '' || anioSeleccionado === '' || tipo === ''){
     // interfaz imprimiendo un error
-    console.log('faltan datos');
+    interfaz.mostrarError('Faltan datos, revisa el formulario y prueba de nuevo.', 'error');
   }else{
     // instanciar seguro y mostrar interfaz
     console.log('todo correcto')
